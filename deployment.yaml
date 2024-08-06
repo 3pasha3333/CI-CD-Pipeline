@@ -1,1 +1,19 @@
-image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: registry.gitlab.com/your-namespace/nginx:latest
+        ports:
+        - containerPort: 80
